@@ -53,7 +53,7 @@ async function fetchGitHubProjects() {
         
         // Filter out the portfolio website itself and sort by updated date
         const filteredRepos = repos
-            .filter(repo => !repo.name.includes('.github.io'))
+            .filter(repo => repo.name !== `${GITHUB_USERNAME}.github.io`)
             .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
         
         if (filteredRepos.length === 0) {
