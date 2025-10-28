@@ -155,6 +155,17 @@ body {
     transform: translateY(-2px);
 }
 
+/* Canvas overlay for particle effect */
+.hero-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;            /* Behind text */
+    pointer-events: none;  /* Allow mouse events to pass to hero */
+    opacity: 0.9;          /* Slight blend with background */
+}
+
 /* Sections */
 section {
     padding: 5rem 0;
