@@ -60,6 +60,11 @@ function initHeroParticles() {
     let mouse = { x: null, y: null, radius: 150 };
     let animationFrameId;
     
+    // Configuration constants
+    const PARTICLE_DENSITY = 8000; // Pixels per particle
+    const MAX_PARTICLES = 100;
+    const CONNECTION_DISTANCE = 120;
+    
     // Set canvas size
     function setCanvasSize() {
         canvas.width = canvas.offsetWidth;
@@ -135,7 +140,7 @@ function initHeroParticles() {
             if (this.baseY > canvas.height) this.baseY = 0;
             
             // Mouse interaction - repel particles
-            if (mouse.x != null && mouse.y != null) {
+            if (mouse.x !== null && mouse.y !== null) {
                 const dx = mouse.x - this.x;
                 const dy = mouse.y - this.y;
                 const distance = Math.sqrt(dx * dx + dy * dy);
@@ -182,8 +187,8 @@ function initHeroParticles() {
         particles = [];
         // Adjust particle count based on screen size for performance
         const particleCount = Math.min(
-            Math.floor((canvas.width * canvas.height) / 8000),
-            100
+            Math.floor((canvas.width * canvas.height) / PARTICLE_DENSITY),
+            MAX_PARTICLES
         );
         
         for (let i = 0; i < particleCount; i++) {
@@ -207,16 +212,14 @@ function initHeroParticles() {
     
     // Draw lines between nearby particles
     function connectParticles() {
-        const maxDistance = 120;
-        
         for (let i = 0; i < particles.length; i++) {
             for (let j = i + 1; j < particles.length; j++) {
                 const dx = particles[i].x - particles[j].x;
                 const dy = particles[i].y - particles[j].y;
                 const distance = Math.sqrt(dx * dx + dy * dy);
                 
-                if (distance < maxDistance) {
-                    const opacity = (1 - distance / maxDistance) * 0.3;
+                if (distance < CONNECTION_DISTANCE) {
+                    const opacity = (1 - distance / CONNECTION_DISTANCE) * 0.3;
                     ctx.strokeStyle = `rgba(20, 184, 166, ${opacity})`;
                     ctx.lineWidth = 1;
                     ctx.beginPath();
