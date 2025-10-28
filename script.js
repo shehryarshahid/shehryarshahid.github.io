@@ -131,13 +131,6 @@ function createProjectCard(repo) {
     return card;
 }
 
-// Format date for display
-function formatDate(dateString) {
-    const date = new Date(dateString);
-    const options = { year: 'numeric', month: 'short', day: 'numeric' };
-    return date.toLocaleDateString('en-US', options);
-}
-
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     fetchGitHubProjects();
